@@ -1,0 +1,42 @@
+Overall, what I've done to this project are followings:
+	1. create four new system call to PM server: create, up, down, close semaphore.
+	2. create my library header and .c file(libsem.h/ libsem.c) for the four functions in user 
+	  layerand make them into randomly accessible library (-lsem)
+	
+	3.create my library header and .c file in pm( sem.h/sem.c) to define details of four system call.
+	4. modify mproc.h to add declaration of semaphore pointer array
+	5. modify forkexit.c to change the behavior of fork() and proc_exit():
+		-fork(): increment refcount in every semophore in use
+		-proc_exit(): decrement recount when process exiting
+	6. create two test program to interact with user(libdin.h;libdin.c)
+		-main.c: create one table with 5 philosophers
+			-this program simply test 4 semaphore system functions.
+		-main2.c: create two table, each with 5 philosophers 
+		
+	Elaboration:
+		In order to fit requirements of 4 system calls, I create a semaphore structure(pm/sem.h).
+		Especially for semaphore's inheritance property, I have to incorporate such structure into
+		mproc table so that whenever a process get forked, all using semaphores will pass into children
+		process.
+		
+		In order to automatically release semaphore's resources when no process is using it, refcount
+		record the number of process using such semaphore. So whenever the semaphore user process gets
+		forked, the refcount need to be incremented. On the contrary, when a process possessing arbitrary
+		numbers of semaphores is exiting, the refcount need to be decremented. To do that, I modified 
+		forkexit.c to add semaphore modification codes.
+		
+		After implementing system call, the first test program is simply using semaphore to solve 
+		dining philosopher problem. The life of a philosopher has two critical section, when he's 
+		hungry and try to get forks and when he finish eating try to put forks back. I use semaphore,
+		MUTEX to protect such two critical sections. This test program create a table with five philosophers
+		trying to eat and think simultaneously. As we can see the output on monitor without 2 adjacent 
+		philosopher eating at the same time.
+		
+		The second test program does more than just showing basic application of semaphore. The main
+		process set up shared memory, create N semaphores for N philosophers and fork out N children
+		to do philosopher's routine. However, after create one table of five philosophers, the main,
+		parent process close all old using semaphores and create a new table of five philosophers.
+		
+		Even though in second table,each philosopher's semaphores descriptor is the same as the first table,
+		they point to different memory location, which means they are different semaphores in essence. With
+		new shared memory set up, now the program 2 is running two set of philosopher at the same time. 
