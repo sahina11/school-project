@@ -1,0 +1,7 @@
+In this game, beads of the same color that touch each other vertically or horizontally (but NOT diagonally) are considered a group. Any group can be removed from the board during a move while single beads cannot. When a group is removed, all of the beads supported by the group drop down as far as possible in their respective columns.
+
+Whenever a gropu IS being removed, there is a score comes with it. The larger the group is, the bigger the score. 
+
+So the first part of this LISP program is to allow user interactively play the game and the system will perform right, calculating accomapy scores and detect end of game.
+
+Second part is to install intelligence into program, which means the program could be able to choose each step automatically, and the goal is to maximize the final score.

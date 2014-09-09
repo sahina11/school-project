@@ -1,0 +1,6 @@
+In this project, a topology of sensors and data aggregation points are defined.
+First the program has to parse the input setup file to create the simulation background.
+
+Each sensor has its own energy capacity. The purpose of sensor network is to propagate sensing data to access point. To do so, we need a path to route the data. To deice which path to route data, not only shortest path is important, but energy capacity bottleneck on the path need to be considered too.
+
+For example, sensor 'a' finds a shortest path to AS (a > b > c > d > e > AS). If 'c' in the path is running out of battery life, choosing this path to route the data will deplete c's energy totally, so we need to find another path without c getting involved so that we could keep every sensor alive as long as possible.
