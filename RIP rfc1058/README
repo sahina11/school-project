@@ -1,0 +1,8 @@
+RFC 1058 == RIP: routing information protocol
+It is a protocol for exchanging routing information between routers.
+
+My program will first initilize processes representing nodes(routers), then they will start to exchange routing information. RIP is distance-vector routing protocol, basically it means each router tell its neighbors what is the world in its perspective. 
+
+Each node use such information to calculate routing table, which will serve for ensuing packet routing.
+
+The program has to handle exceptions like node goes down and reappears for robust routing service.
