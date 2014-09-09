@@ -23,3 +23,4 @@ Overall, what I've done to this project are followings:
 		The second test program does more than just showing basic application of semaphore. The main process set up shared memory, create N semaphores for N philosophers and fork out N children to do philosopher's routine. However, after create one table of five philosophers, the main, parent process close all old using semaphores and create a new table of five philosophers.
 		
 		Even though in second table,each philosopher's semaphores descriptor is the same as the first table,they point to different memory location, which means they are different semaphores in essence. With new shared memory set up, now the program 2 is running two set of philosopher at the same time. 
+
