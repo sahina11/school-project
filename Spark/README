@@ -1,0 +1,7 @@
+This is the first checking point in a series of projects toward my goal to challenge the championship of imagenet tournament. The state of the art technology being used in that contest is Convolutional neural network. That is my next goal.
+
+The project serves three purposes(sorted from application level to hardware level):
+  1. Intro level understanding of imagenet contest by implement image classifier using Naive Bayes algorithm.
+  2. Learn to use Spark on a cluster to do distributed processing. 
+  3. Learn how to use Amazon AWS to create a cloud cluster.
+  
