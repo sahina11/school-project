@@ -1,0 +1,28 @@
+NAME
+	fopen_enc
+	
+SYNOPSIS
+	
+	#include <unistd.h>
+	#include <lib.h>
+	
+	FILE *fopen_enc(char *filepath, char *mode, char *password)	
+	
+DESCRIPTION
+	the function will send password and file path to VFS for matching. The
+	matching result will be wrapped in FILE structure.
+
+	
+RETURN VALUE
+	return FILE pointer.
+		when:
+			1.the file is not encoded: 
+				fp->is_encoded ==0
+			2.the file is encoded, password is not right: 
+				the function will terminate the whole program
+			3.the file is encoded, password is right:
+				fp->is_encoded ==1
+				fp->is_pwdright ==1
+				fp->key == key of the password
+				
+ERRORS

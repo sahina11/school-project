@@ -1,0 +1,5 @@
+1. use make to compile
+2. ./rip virtual_ip
+	ex: ./rip 10.0.0.1
+3. run every virtual node in topology
+4. the routing table will converge

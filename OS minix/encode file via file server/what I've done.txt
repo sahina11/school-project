@@ -1,0 +1,72 @@
+This project has two parts:
+	1.create a command line program to encode, decode file, then be able to change password.
+	2.create a new fopen function which can be used by other program to open encoded files.
+		This function should respond to non-encoded file as regular fopen.
+		
+PART 1:		
+	@@ Command line program @@ (setencrypt.c)
+	The purpose of this program is encode, decode and change password of a file.
+	So to decode and encode a file, it will take option argument,file path, 
+	and password as arguments. When processing change password, the program will 
+	take one more argument to indicate new password.
+	
+	Actually, the all this program do is to transfer message to VFS, where jobs 
+	really get done. So I parse those command line arguments, wrap them into a
+	message. This time I choose to use m7 to transfer all information I need to 
+	VFS.
+	
+	@@ VFS system call @@ (protect.c, do_setencrypt)
+	The syscall receives the message. I divide syscall into three part according to 
+	requirement of user. They will be E,encoding, D,decoding,and P,changing password.
+	
+	Here are some set-ups before really doing decode/encode. 
+		1.I have to create a table file to keep records of encoded files. Every encoded
+		file will have a corresponding entry indication such file's inode and device
+		number, then is the hashed password.
+		
+		2.Every system call I have to read/write two files, table file and the file
+		intended to be processed. In order to read/write files, I need to find such
+		file's vnode pointer.
+		so "fetch_name", "lookup_init" and "eat_path" are used for find vnode.
+		
+		
+	When I got vnode, I can look up table file, check if the file is encoded or ckeck
+	if the password provided by user is right. Then I can encode or decode such file
+	with intended password.
+	
+	The algorithm I used to encode decode file is very simple. I just add up every
+	char and then mode by 128. Then I will have a hash key between 0--127. This is 
+	the shift amount of every single byte. I add it when encoding, subtract it when
+	decoding.
+	
+	In VFS, file read/write is done by req_readwrite().Actually this function is 
+	acting like a parser to extract need information and then send pass the 
+	request to MFS, where read/write happens in physical sense. 	 
+  
+PART 2:
+	@@ fopen_enc, fread & fwrite @@ (fopen_enc.c)
+	In order to implement the new fopen, I create a new syscall, do_fopen_enc, to help
+	me. In user lever, new fopen will send file path and password to VFS by IPC,and 
+	then VFS will look up table file, see if the file path and password is correct.
+	If so, which means user provide the right password and all ensuing fread and fwrite
+	will be carried on like the file is never been encrypted.
+	
+	To make it happen, I have to modify FILE structure in stdio.h. I add three variables:
+		1. int is_encoded
+		2. int is_ pwdright
+		3. int key
+		
+		only three situation will happen:
+			1. file is not encoded. Then fopen_enc will act like a normal fopen, as well
+			as fread and fwrite.
+			2. file is encoded, but the password is wrong. Then fopen will print warning
+			on the terminal, and terminate the program that try to access the file with 
+			wrong password.
+			3.encoded, password is good. In this case, fread will decode the buffer by
+			the key in FILE ptr. fwrite will encode the buffer before write in the file.
+						
+		
+			
+	 
+  
+	

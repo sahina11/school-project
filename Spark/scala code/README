@@ -1,0 +1,20 @@
+1. set up EC2 cluster, login to master node
+2. chown -R ec2-user /root #this enable sftp
+3. ./sbt package #compile .jar file local, upload to master
+4. submit script:
+	./spark-submit --class <main object name> --master <local or sc.master> <.jar path>
+
+Script repository:
+Launch ec2 cluster 
+
+submit application:
+./spark/bin/spark-submit --class Naive --master spark://ec2-54-85-149-164.compute-1.amazonaws.com:7077 /root/naive-project_2.10-1.0.jar
+
+use tachyon:
+./tachyon/bin/tachyon tfs copyFromLocal /root/550_MB_Train_and_Test_data.tsv /data/550_MB_Train_and_Test_data.tsv
+
+local: /Users/lucasshen/Desktop/imagenet/data N/200_MB_Test_dat_tab.tsv
+
+ec2 master: /root/data/200_MB_Test_dat_tab.tsv
+
+S3: s3n://AKIAIDOQLVVLPIIK5GDA:wbAT9nuLG3FtHXa7dTW7TDag5UdnHXGGoVCmQQPi@lucas-coen241/200_MB_Test_dat_tab.tsv

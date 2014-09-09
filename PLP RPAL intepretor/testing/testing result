@@ -1,0 +1,70 @@
+Last login: Tue Jul 23 11:33:57 on ttys001
+Lucass-MacBook-Pro:PLP lucasshen$ ssh shen@thunder.cise.ufl.edu
+shen@thunder.cise.ufl.edu's password: 
+Welcome to Ubuntu 12.04.2 LTS (GNU/Linux 3.2.0-40-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+Last login: Tue Jul 23 11:34:26 2013 from 10.137.68.152
+thunder:1% cd plp/
+thunder:2% make test
+./difftest.pl -1 "./rpal/rpal FILE" -2 "./p1 FILE" -t ./rpal/tests/
+Testing fn2...OK!
+Testing clean...Doesn't match! See ./diffresult/clean.diff 
+Testing t16...OK!
+Testing defns.3...Doesn't match! See ./diffresult/defns.3.diff 
+Testing reverse...Doesn't match! See ./diffresult/reverse.diff 
+Testing envlist...Doesn't match! See ./diffresult/envlist.diff 
+Testing pairs3...Doesn't match! See ./diffresult/pairs3.diff 
+Testing t1...OK!
+Testing Treepicture...Segmentation fault (core dumped)
+Doesn't match! See ./diffresult/Treepicture.diff 
+Testing tuples...Doesn't match! See ./diffresult/tuples.diff 
+Testing pf...OK!
+Testing string1...OK!
+Testing fn1...OK!
+Testing tiny...Segmentation fault (core dumped)
+Doesn't match! See ./diffresult/tiny.diff 
+Testing t2...OK!
+Testing add...Doesn't match! See ./diffresult/add.diff 
+Testing infix...OK!
+Testing conc3...Doesn't match! See ./diffresult/conc3.diff 
+Testing t18...OK!
+Testing towers...^CDoesn't match! See ./diffresult/towers.diff 
+Testing infix2...OK!
+Testing simple.div...OK!
+Testing test1...OK!
+Testing vectorsum...Doesn't match! See ./diffresult/vectorsum.diff 
+Testing wsum1...Doesn't match! See ./diffresult/wsum1.diff 
+Testing tiny.1...Doesn't match! See ./diffresult/tiny.1.diff 
+Testing if1...Doesn't match! See ./diffresult/if1.diff 
+Testing prog...OK!
+Testing pairs2...Doesn't match! See ./diffresult/pairs2.diff 
+Testing conc1...OK!
+Testing stem2...OK!
+Testing print2...OK!
+Testing defns.2...OK!
+Testing div...OK!
+Testing fn3...OK!
+Testing wsum2...Doesn't match! See ./diffresult/wsum2.diff 
+Testing Innerprod...Doesn't match! See ./diffresult/Innerprod.diff 
+Testing ftst...OK!
+Testing if2...OK!
+Testing picture...Segmentation fault (core dumped)
+Doesn't match! See ./diffresult/picture.diff 
+Testing t9...OK!
+Testing send...OK!
+Testing t3...Doesn't match! See ./diffresult/t3.diff 
+Testing trees...Doesn't match! See ./diffresult/trees.diff 
+Testing recurs.1...OK!
+Testing pairs1...Doesn't match! See ./diffresult/pairs1.diff 
+Testing t19...Doesn't match! See ./diffresult/t19.diff 
+Testing Innerprod2...Doesn't match! See ./diffresult/Innerprod2.diff 
+Testing print1...OK!
+Testing stem1...OK!
+Testing defns.1...OK!
+Testing conc.1...Doesn't match! See ./diffresult/conc.1.diff 
+Testing sum...OK!
+25 tests failed!
+make: *** [test] Interrupt
+
+thunder:3% 

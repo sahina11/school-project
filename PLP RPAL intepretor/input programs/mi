@@ -1,0 +1,3 @@
+cat medium $1 > temp
+rpal temp
+'rm' temp

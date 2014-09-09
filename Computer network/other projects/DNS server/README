@@ -1,0 +1,8 @@
+1. compile server code and two kinds of client code
+2. Launch server
+3. Launch register client to register new domain name and IP address
+	dnsReg hostname||IP_addr port# domain_name IP_addr
+4. Launch get IP client to retrieve IP address
+	dnsGetIP hostname||IP_addr port# domain_name
+
+

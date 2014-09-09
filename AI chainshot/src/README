@@ -1,0 +1,10 @@
+interactive mode:
+1.plz place all files in the same folder.
+2.load chainshot.lisp in your LISP implementation.
+3.type in (chainshot-manual) to start the game.
+
+
+automode: 
+1.and 2.
+3.save only one board data (the one with space between color) in "board.lisp"
+4.type in (chainshot-auto size) where size is the input board size.

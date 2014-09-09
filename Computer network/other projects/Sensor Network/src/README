@@ -1,0 +1,5 @@
+1. command "make" to compile -> executable name = shortestpath
+2. manual run : ./shortestpath < <your test file directory>
+
+
+

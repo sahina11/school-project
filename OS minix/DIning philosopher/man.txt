@@ -1,0 +1,100 @@
+NAME
+	create_semaphore
+	
+SYNOPSIS
+	
+	#include <unistd.h>
+	#include <lib.h>
+	
+	int create_semaphore(int sd)	
+	
+DESCRIPTION
+	the function take a integer as descriptor to create the semaphore.
+	Initial value of newly created semaphore is 1.
+
+	
+RETURN VALUE
+	return semaphore descriptor, -1 when failure to to create one.
+	
+ERRORS
+
+---------------------------------------------------------	
+
+NAME
+	up_semaphore
+	
+SYNOPSIS
+	
+	#include <unistd.h>
+	#include <lib.h>
+	
+	int up_semaphore(int sd)	
+	
+DESCRIPTION
+	up semaphore with descriptor sd by one.
+	if the semaphore value is 0, then wake up the first process
+	of the waiting queue.
+	if nobody's waiting. increment value by 1.
+
+	
+RETURN VALUE
+	succeed 1, failure -1
+	
+ERRORS
+	binary semaphore, when you want to up a semaphore whose value
+	is one, then error, or you try to up a semaphore which is not 
+	in use by such process
+
+---------------------------------------------------------	
+
+NAME
+	down_semaphore
+	
+SYNOPSIS
+	
+	#include <unistd.h>
+	#include <lib.h>
+	
+	int up_semaphore(int sd)	
+	
+DESCRIPTION
+	down semaphore with descriptor sd by one.
+	if the semaphore's value is 1, decrement by 1.
+	if the value is 0. put the calling process into waiting list
+	and block such process.
+
+	
+RETURN VALUE
+	succeed 1, failure -1
+	
+ERRORS
+	when you try to down a semaphore which is not 
+	in use by such process
+---------------------------------------------------------	
+
+NAME
+	close_semaphore
+	
+SYNOPSIS
+	
+	#include <unistd.h>
+	#include <lib.h>
+	
+	int close_semaphore(int sd)	
+	
+DESCRIPTION
+	close semaphore who's descriptor is sd.
+	if the such semaphore is still in use by other process,
+	terminate the right to acces such semaphore of calling process
+	and return.
+	if the semaphore has no process using it. close the semaphore
+	completely, release its resource.
+
+	
+RETURN VALUE
+	succeed 1, failure -1
+	
+ERRORS
+	when you try to modify a semaphore which is not 
+	in use by such process
+---------------------------------------------------------	

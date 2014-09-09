@@ -1,0 +1,35 @@
+NAME
+	promote - promote child process to its grand parent
+	
+SYNOPSIS
+	
+	#include <unistd.h>
+	#include <lib.h>
+	
+	int promote (int child_pid)
+	
+DESCRIPTION
+
+	Promote is called by parent process. 
+	
+	It usually happens when parent process is going to terminate and doesn't want
+	his child become zombie process. So after promotion, the child's new parent is used
+	to be its grandparent.
+	
+RETURN VALUE
+
+	Upon successful completion, promote returns 0. Otherwise, return -1 to indicate error.
+	
+ERRORS
+
+	promote will fail if one of the following are true:
+	
+	There is no running process has the same pid as child's pid
+	Maybe the child process exit before promotion.
+	
+	
+	
+	
+	
+	
+	 

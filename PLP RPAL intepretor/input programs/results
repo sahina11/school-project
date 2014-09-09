@@ -1,0 +1,25 @@
+p01.t: (3)
+p02.t: (6, 0, 9, 1, 12)
+p03.t: (false, false, true, true, false, true)
+p04.t: nil
+p05.t: (true)
+p06.t: (true)
+p07.t: (4)
+p08.t: (3, 1, 2)
+p09.t: (1, 1, 1)
+p10.t: (3, 3, 3)
+p11.t: (3)
+p12.t: (1, 2, 3, 4, 5)
+p13.t: (true, 3, 3)
+p14.t: (1, 2, 3, 4, 5)
+p15.t: (3, 4)
+p16.t: error
+p17.t: error
+p18.t: error
+p19.t: error
+p20.t: error
+p21.t: (0, 5, 1, 2, 2, 4)
+p22.t: (false, true, true, true, false, false, false, true, false, true)
+p23.t: (4)
+p24.t: (1, 15, 4, 14)
+p25.t: (1)
