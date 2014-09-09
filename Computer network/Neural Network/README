@@ -1,0 +1,8 @@
+In this project, I use scala and akka library to exploit the convenience of actor model. The convenience comes into two forms:
+  1: Conceptually fit model to implement neural network.
+  2: Parallel processing throught multithreads and message passing.
+Because what I want to simulate is a neural network, and the basic building block of neural network is "neuron", so I treat each neuron as an actor, and each neural firing as message passing in between actors.
+
+These productivity gains could only be achived by the cost of using JVM and message passing communication overheads. When efficiency really matters, I will have to use lower level tools to have more control on details.
+
+The project could be deployed on multiple machines, which means it can scale out. It could scale up well too, since akka library take care of low level parallel threads creationg and scheduling.
