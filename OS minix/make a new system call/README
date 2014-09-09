@@ -12,58 +12,42 @@
 			1. I create a call number in file "callnr.h"( /usr/src/include/minix/callnr.h)
 				#define PROMOTE       56
 				
-			2. go to "table.c"(/server/pm/table.c) to complete the mapping between 
-			name and number
+			2. go to "table.c"(/server/pm/table.c) to complete the mapping between name and number
 				do_promote,	/* 56 = promote */
 				
-			3. go to "proto.h"(/server/pm/proto.h) to declare the prototype of the 
-			function in PM
+			3. go to "proto.h"(/server/pm/proto.h) to declare the prototype of the function in PM
 				int do_promote(void);
 				
 		2.Code, running in PM: the code I insert in misc.c. definition of do_promote
-			idea: the state of a certain process is stored in a process table,a structure,
-			which is distribute over kernel, PM, FM. 
-			So I want to do something with a process's parent in PM, I look 
+			idea: the state of a certain process is stored in a process table,a structure,which is distribute over kernel, PM, FM. So I want to do something with a process's parent in PM, I look 
 				"mproc.h" (/server/pm) 
-			for any information about its parent. There is no variable about parent's pid, 
-			but there is one variable about parent's "process index", process number.
+			for any information about its parent. There is no variable about parent's pid, but there is one variable about parent's "process index", process number.
 				  int mp_parent;		/* index of parent process */
 				  
-			So, if I want to promote a process, I find the right process number and assign it
-			to mp_parent of the process I want to promote. Done. 
+			So, if I want to promote a process, I find the right process number and assign it to mp_parent of the process I want to promote. Done. 
 				  
 		
 			1. Receive the message:
-				Conceptually, PM gets a message form user layer. The message is an integer
-				that represents a child process id. This child process needs to be promoted.
+				Conceptually, PM gets a message form user layer. The message is an integer that represents a child process id. This child process needs to be promoted.
 				
 				Incoming message is kept in "m_in". So I extract the message by:
 					child_pid = m_in.m1_i1
-				The message is create by a user function, promote(), in this function I wrap
-				the child pid in message and send to PM. Message is a structure. 
-				So in promote(), I choose 
+				The message is create by a user function, promote(), in this function I wrap the child pid in message and send to PM. Message is a structure.So in promote(), I choose 
 					m.m1_i1 
 				to store the integer. That is the reason I extract it from m1_i1 here.
 				
-			2.I got the child pid. Then I run a search to find the process number of this child.
-			  From child's process number, I can find his parent's precess number.
-			  Recursively, from his parent's process number, I find his grand parent's 
-			  process number. Then I assign grand parent's process number to children's mproc.
-			  Done.
+			2.I got the child pid. Then I run a search to find the process number of this child.From child's process number, I can find his parent's precess number.Recursively, from his parent's process number, I find his grand parent's process number. Then I assign grand parent's process number to children's mproc.Done.
 			  
 	<create my library header for the promote function in user layer>
-		I create a header file in which I could define all functions created by me in user layer,
-		then it could be referenced by a C user program.
+		I create a header file in which I could define all functions created by me in user layer, then it could be referenced by a C user program.
 		
-		The purpose of this promote() function is to pass a message and invoke a system call in PM.
-		And the message is function's argument, child's pid. 
+		The purpose of this promote() function is to pass a message and invoke a system call in PM.And the message is function's argument, child's pid. 
 		
 	<create a test program to interact with user and initiate the system call on request>
 		 
 			1.before promotion:
 				-I print out my test program's pid and its parent's pid.( main() and shell)
-				-Then I do a fork to create a child process. I use the different return value
-				from fork() to separate codes running in main and in child process.	
+				-Then I do a fork to create a child process. I use the different return value from fork() to separate codes running in main and in child process.	
 				
 			2.during promotion:
 				-In main()
@@ -72,20 +56,12 @@
 					First, I declare myself, including my pid, parent's pid.
 					Then go into infinite loop waiting for promotion.
 					
-					The main program is going to die, I have to survive until got
-			 		promotion. So in the condition, when he is not yet dead, I
-			 		will live to see if I got promoted.
-			 		In both cases either I got the promotion or he do nothing but die
-			 		my ppid will not be mainpid. If I got promoted, ppid will be
-			 		shell's pid, if not, it will be 1, then I will get out
-			 		of infinite loop
+					The main program is going to die, I have to survive until got promotion. So in the condition, when he is not yet dead, I will live to see if I got promoted. In both cases either I got the promotion or he do nothing but die my ppid will not be mainpid. If I got promoted, ppid will be shell's pid, if not, it will be 1, then I will get out of infinite loop
 			 		
 			 3.after promotion:
 			 	main() will die.
 			 	if promotion succeed, child process will print out his new parent's id.
-			 	if not succeed, child gets no promotion and his parent is dead. It's parent
-			 	will be "init", which process id is 1. In this case, we call this child process
-			 	"zombie" process.
+			 	if not succeed, child gets no promotion and his parent is dead. It's parent will be "init", which process id is 1. In this case, we call this child process "zombie" process.
 		
 					
 				
