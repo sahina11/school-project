@@ -1,0 +1,7 @@
+This is a series of three projects. MINIX is designed by layered micro kernel architecture. In these projects, I was working on tweaking process manager and file server to achieve 3 goals:
+
+1. create a new system call, which will prevent a forked child process from becoming orphan when parent process is terminated earlier than child.
+2. Solve dining philosopher problem by creating semaphore in OS level. So user program could use system call to lock and unlock critical resources. 
+3. Encrypt and decrypt file by tweaking file server, fopen and fread. 
+
+Independent project. Using pure C to interact with OS.
