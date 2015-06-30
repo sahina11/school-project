@@ -1,4 +1,4 @@
-In this project, I use scala and akka library to exploit the convenience of actor model. The convenience comes into two forms:
+In this project, I use scala and akka library to exploit the power of actor model. The power comes into two forms:
   1: Conceptually fit model to implement neural network.
   2: Parallel processing throught multithreads and message passing.
 Because what I want to simulate is a neural network, and the basic building block of neural network is "neuron", so I treat each neuron as an actor, and each neural firing as message passing in between actors.
